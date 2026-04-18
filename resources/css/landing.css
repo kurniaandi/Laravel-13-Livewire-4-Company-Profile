@@ -1,0 +1,141 @@
+@import "tailwindcss";
+
+@source "../**/*.blade.php";
+@source "../**/*.js";
+@source "../../storage/framework/views/*.php";
+
+@theme {
+    /* Font */
+    --font-sans: 'Plus Jakarta Sans', sans-serif;
+    --font-display: 'Fraunces', serif;
+
+    /* Brand colors */
+    --color-brand-50:  #f0f7ff;
+    --color-brand-100: #e0effe;
+    --color-brand-200: #bae0fd;
+    --color-brand-300: #7dc8fc;
+    --color-brand-400: #38a9f8;
+    --color-brand-500: #0e8de9;
+    --color-brand-600: #026fc7;
+    --color-brand-700: #0358a1;
+    --color-brand-800: #074b85;
+    --color-brand-900: #0c3f6e;
+    --color-brand-950: #082849;
+
+    /* Accent colors */
+    --color-accent-50:  #fff8ed;
+    --color-accent-100: #ffefd4;
+    --color-accent-200: #ffdc9f;
+    --color-accent-300: #ffc36a;
+    --color-accent-400: #ffa033;
+    --color-accent-500: #ff820a;
+    --color-accent-600: #f06200;
+    --color-accent-700: #c74804;
+    --color-accent-800: #9e380c;
+    --color-accent-900: #7f300d;
+
+    /* Animations */
+    --animate-fade-up:    fadeUp 0.6s ease-out forwards;
+    --animate-fade-in:    fadeIn 0.5s ease-out forwards;
+    --animate-slide-right: slideRight 0.6s ease-out forwards;
+    --animate-float:      float 3s ease-in-out infinite;
+    --animate-pulse-slow: pulse 3s ease-in-out infinite;
+
+    /* Shadows */
+    --shadow-soft:   0 2px 15px -3px rgba(0,0,0,0.07), 0 10px 20px -2px rgba(0,0,0,0.04);
+    --shadow-medium: 0 4px 25px -5px rgba(0,0,0,0.1), 0 10px 25px -5px rgba(0,0,0,0.04);
+    --shadow-strong: 0 20px 60px -10px rgba(0,0,0,0.15);
+    --shadow-brand:  0 10px 40px -10px rgba(2,111,199,0.4);
+    --shadow-accent: 0 10px 40px -10px rgba(255,130,10,0.4);
+}
+
+/* =============================================
+   KEYFRAMES
+   ============================================= */
+@keyframes fadeUp {
+    0%   { opacity: 0; transform: translateY(24px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+    0%   { opacity: 0; }
+    100% { opacity: 1; }
+}
+@keyframes slideRight {
+    0%   { opacity: 0; transform: translateX(-24px); }
+    100% { opacity: 1; transform: translateX(0); }
+}
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50%       { transform: translateY(-10px); }
+}
+
+/* =============================================
+   CUSTOM UTILITIES
+   ============================================= */
+[x-cloak] { display: none !important; }
+
+.gradient-text {
+    background: linear-gradient(135deg, #026fc7, #0e8de9, #38a9f8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.gradient-text-accent {
+    background: linear-gradient(135deg, #ff820a, #ffa033, #ffc36a);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.hero-gradient {
+    background:
+        radial-gradient(ellipse at 20% 50%, rgba(2,111,199,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(255,130,10,0.06) 0%, transparent 50%),
+        #f8faff;
+}
+
+.mesh-bg {
+    background-image:
+        radial-gradient(at 40% 20%, rgba(2,111,199,0.05) 0px, transparent 50%),
+        radial-gradient(at 80% 0%,  rgba(255,130,10,0.03) 0px, transparent 50%),
+        radial-gradient(at 0%  50%, rgba(56,169,248,0.04) 0px, transparent 50%);
+}
+
+.card-hover {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 60px -10px rgba(0,0,0,0.15);
+}
+
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.animate-on-scroll.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.sticky-cta    { transition: all 0.3s ease; }
+
+.navbar-blur {
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+}
+
+.mockup-float       { animation: float 4s ease-in-out infinite; }
+.mockup-float-delay { animation: float 4s ease-in-out infinite; animation-delay: 1.5s; }
+
+.badge-pulse::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: currentColor;
+    animation: pulse 2s ease-in-out infinite;
+    opacity: 0.3;
+}
