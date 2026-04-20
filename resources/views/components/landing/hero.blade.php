@@ -25,59 +25,63 @@
             <div class="text-center lg:text-left">
 
                 {{-- Badge --}}
+                @if($hero?->badge_text)
                 <div class="inline-flex items-center gap-2 bg-brand-50 border border-brand-100 text-brand-700 text-xs font-semibold px-4 py-2 rounded-full mb-6 animate-fade-in">
-                    🚀 Platform Website UMKM #1 di Indonesia
+                    {!! $hero->badge_text !!}
                 </div>
+                @endif
 
                 {{-- Title --}}
                 <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl font-700 text-slate-900 leading-tight mb-6">
-                    Website Profesional
-                    <span class="gradient-text italic">Mudah & Cepat</span><br>
-                    Untuk Bisnis Anda<br>
-                    <span class="text-slate-700">Tanpa Ribet, Tanpa Coding</span>
+                    {{ $hero?->title_top }}
+                    <span class="gradient-text italic">{{ $hero?->title_highlight }}</span><br>
+                    {{ $hero?->title_bottom }}<br>
+                    <span class="text-slate-700">{{ $hero?->title_small }}</span>
                 </h1>
 
                 {{-- Description --}}
                 <p class="text-lg text-slate-600 leading-relaxed mb-8 max-w-xl mx-auto lg:mx-0">
-                    Buat website UMKM Anda tampil profesional dalam <strong>hitungan menit</strong>. Tingkatkan kepercayaan pelanggan, raih lebih banyak leads, dan kembangkan bisnis Anda secara online dengan mudah.
+                    {!! $hero?->description !!}
                 </p>
 
                 {{-- CTA --}}
                 <div class="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start mb-10">
 
-                    <a href="https://app.umkm-anda.com/daftar" target="_blank"
+                    @if($hero?->cta_primary_text)
+                    <a href="{{ $hero->cta_primary_url }}" target="_blank"
                         class="inline-flex items-center justify-center gap-3 bg-brand-600 hover:bg-brand-700 text-white font-semibold px-7 py-4 rounded-2xl shadow-brand shadow-md hover:shadow-brand/60 hover:shadow-lg transition-all duration-200 hover:-translate-y-0.5 group">
-                        Coba Gratis 14 Hari
+                        {{ $hero->cta_primary_text }}
                     </a>
+                    @endif
 
-                    <a href="/demo"
+                    @if($hero?->cta_secondary_text)
+                    <a href="{{ $hero->cta_secondary_url }}"
                         class="inline-flex items-center justify-center gap-2 bg-white hover:bg-slate-50 text-slate-700 font-semibold px-7 py-4 rounded-2xl border border-slate-200 shadow-soft hover:shadow-medium transition-all duration-200 hover:-translate-y-0.5">
-                        Lihat Demo
+                        {{ $hero->cta_secondary_text }}
                     </a>
+                    @endif
 
                 </div>
 
                 {{-- Trust Items --}}
+                @php
+                $trustItems = is_array($hero?->trust_items)
+                ? $hero->trust_items
+                : json_decode($hero?->trust_items, true);
+                @endphp
+
+                @if($trustItems)
                 <div class="flex flex-wrap items-center gap-4 justify-center lg:justify-start text-sm text-slate-500">
+                    @foreach($trustItems as $item)
                     <div class="flex items-center gap-1.5">
                         <svg class="w-4 h-4 text-emerald-500" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" />
                         </svg>
-                        Tanpa kartu kredit
+                        {{ $item }}
                     </div>
-                    <div class="flex items-center gap-1.5">
-                        <svg class="w-4 h-4 text-emerald-500" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" />
-                        </svg>
-                        Setup dalam 5 menit
-                    </div>
-                    <div class="flex items-center gap-1.5">
-                        <svg class="w-4 h-4 text-emerald-500" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" />
-                        </svg>
-                        Support 24/7
-                    </div>
+                    @endforeach
                 </div>
+                @endif
 
             </div>
 
@@ -92,7 +96,7 @@
                             <div class="w-2.5 h-2.5 rounded-full bg-yellow-400"></div>
                             <div class="w-2.5 h-2.5 rounded-full bg-emerald-400"></div>
                             <div class="flex-1 bg-slate-700 rounded-md h-5 ml-2 flex items-center px-2">
-                                <span class="text-slate-400 text-xs">umkm-anda.com</span>
+                                <span class="text-slate-400 text-xs">lagikoding.com</span>
                             </div>
                         </div>
                         {{-- Website Preview --}}
@@ -152,20 +156,24 @@
                 </div>
 
                 {{-- Floating Badge: Speed --}}
-                <div class="absolute -top-4 -left-4 bg-white rounded-2xl shadow-medium p-3 flex items-center gap-2">
+                @if($hero?->speed_score)
+                <div class="absolute -top-4 -right-4 bg-white rounded-2xl shadow-medium p-3 flex items-center gap-2">
                     <div>
-                        <div class="text-xs font-bold text-slate-800">98/100</div>
+                        <div class="text-xs font-bold text-slate-800">{{ $hero->speed_score }}</div>
                         <div class="text-[10px] text-slate-500">PageSpeed Score</div>
                     </div>
                 </div>
+                @endif
 
                 {{-- Floating Badge: Leads --}}
+                @if($hero?->leads_increase)
                 <div class="absolute top-1/2 -right-6 sm:-right-12 bg-white rounded-2xl shadow-medium p-3 flex items-center gap-2">
                     <div>
-                        <div class="text-xs font-bold text-slate-800">+240%</div>
+                        <div class="text-xs font-bold text-slate-800">{{ $hero->leads_increase }}</div>
                         <div class="text-[10px] text-slate-500">Leads meningkat</div>
                     </div>
                 </div>
+                @endif
 
             </div>
 

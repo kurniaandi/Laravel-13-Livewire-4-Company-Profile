@@ -1,12 +1,22 @@
 <?php
 
 use Livewire\Component;
+use App\Models\Hero;
 
 new class extends Component
 {
-    function render()
+    public $hero;
+
+    public function mount()
     {
-        return $this->view()
+        $this->hero = Hero::where('is_active', true)->latest()->first();
+    }
+
+    public function render()
+    {
+        return $this->view([
+            'hero' => $this->hero,
+        ])
         ->layout('layouts::landing')
         ->title('Landing Page');
     }
